@@ -22,6 +22,10 @@
     background: #FFE0B3;
 }
 
+.btn-cart:hover {
+    background-color: goldenrod;
+}
+
 /* product Image */
 .product img {
     width: 286px;

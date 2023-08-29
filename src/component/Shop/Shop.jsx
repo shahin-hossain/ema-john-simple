@@ -5,14 +5,18 @@ import Product from '../Product/Product';
 const Shop = () => {
     // useState & useEffect for load data
     const [products, setProducts] = useState([]);
+    const [cart, setCart] = useState([]) // এখানে cart গুলো রাখা হবে। array.push দিয়ে state কিছু সেট করা যায় না করণ এটা immiutable.
+    console.log(cart)
     useEffect(() => {
         fetch('products.json')
             .then(res => res.json())
             .then(data => setProducts(data))
     }, [])
 
+    //Add to cart event Handler 
     const handleAddToCart = (product) => {
-        console.log(product)
+        const newCart = [...cart, product]
+        setCart(newCart);
     }
     return (
         <div className='shop-container'>
@@ -27,6 +31,7 @@ const Shop = () => {
             {/* cart container start */}
             <div className="cart-container">
                 <h4>Order Summery</h4>
+                <h3>Selected Cart: {cart.length}</h3>
             </div>
         </div>
     );

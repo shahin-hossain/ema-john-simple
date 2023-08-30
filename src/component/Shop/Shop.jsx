@@ -15,7 +15,7 @@ const Shop = () => {
 
     //Add to cart event Handler 
     const handleAddToCart = (product) => {
-        const newCart = [...cart, product]
+        const newCart = [...cart, product] // এখানে cart array এর উপাদান গুলো বসিয়ে, তারপর product কে সেট করা হয়েছে।
         setCart(newCart);
     }
     return (

@@ -1,0 +1,12 @@
+.cart {
+    background-color: #FF99004D;
+    padding: 25px;
+    /* scroll করলেও এটা diplay তে আটকে থাকবে।*/
+    position: sticky;
+    top: 0;
+
+}
+
+.cart p {
+    font-size: 17px;
+}

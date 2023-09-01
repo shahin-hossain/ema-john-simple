@@ -17,24 +17,31 @@ const Shop = () => {
 
     useEffect(() => {
         // console.log('products', products)
+        //get stored Cart
         const storedCart = getShoppingCart(); // এখানে side effect টা ব্যবহার করা হয়েছে Local Storage এর Stored id Value নিয়ে আশার জন্য। এবং এই ID ধরে product টাকে বের করে নিয়ে আসবো।
-        //setp 1: get stored cart
+        const savedCart = []; //এই Cart এর মধ্যে রাখা হবে local Storage থেকে id দিয়ে প্রাপ্ত products
 
+        //setp 1: get id of the stored cart
         for (const id in storedCart) {
             // console.log(id)
             //setp: 2 Find the Product by using id
-            const savedProduct = products.find(product => product.id === id)
+            const addedProduct = products.find(product => product.id === id)
 
-            //step: 3 get quantiy of the product
-            const quantity = storedCart[id];
-            //step: 4 set quantiy of the Product
-            savedProduct.quantity = quantity
-            console.log(savedProduct)
-
+            if (addedProduct) {
+                //step 3: add Quantity 
+                const quantity = storedCart[id];
+                addedProduct.quantity = quantity;
+                //step 4: add the added product to save Cart
+                savedCart.push(addedProduct)
+            }
         }
+        //setp 5: set tha cart
+        setCart(savedCart)
+        // console.log(addedProduct)
 
 
     }, [products]) //এখানে useEffect এর Dependency set করে দেওয়া হয়েছে। যেহেতু fetch করে data নিয়ে আসতে সময় লাগে,  এর মধ্যে  এই useEffect কল হয়ে যায়। তাহলে empty array আসবে। dependency set করে বলা হল যে, যদি products array এর মান পরিবর্তন হয়ে তাহলে আবার কল করবে।
+
     //Add to cart event Handler 
     const handleAddToCart = (product) => {
         const newCart = [...cart, product] // এখানে cart array এর উপাদান গুলো বসিয়ে, তারপর product কে সেট করা হয়েছে।

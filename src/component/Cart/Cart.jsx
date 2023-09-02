@@ -7,10 +7,16 @@ const Cart = ({ cart }) => { //Option 3: destructuing দিয়ে props কে 
     // console.log(cart)
     let total = 0;
     let totalShipping = 0;
+    let quantity = 0;
 
     for (const product of cart) {
-        total = total + product.price;
-        totalShipping = totalShipping + product.shipping;
+        /* if (product.quantity === 0) {
+            product.quantity = 1
+        } */
+        // product.quantity = product.quantity || 1;
+        total = total + product.price * product.quantity; //যদি একটা product কয়েকবার add করে তাই প্রতিটা product এর quantity গুন করা হয়েছে।
+        totalShipping = totalShipping + product.shipping; // যদি প্রতিটা product এর জন্য shipping cost রাখা হয় তাহলে এখানেও quantity গুন করতে হবে।
+        quantity = quantity + product.quantity;
     } // bought product price & Shiping cost calculation
 
     const tax = total * 7 / 100; //tax Calculation 
@@ -20,7 +26,7 @@ const Cart = ({ cart }) => { //Option 3: destructuing দিয়ে props কে 
     return (
         <div className='cart'>
             <h4>Order Summery</h4>
-            <h3>Selected Items: {cart.length}</h3>
+            <h3>Selected Items: {quantity}</h3>
             <p>Total Price: ${total} </p>
             <p>Total Shipping: ${totalShipping} </p>
             <p>Tax: ${tax.toFixed(2)} </p>

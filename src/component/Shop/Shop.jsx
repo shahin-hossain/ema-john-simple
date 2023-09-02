@@ -44,9 +44,25 @@ const Shop = () => {
 
     //Add to cart event Handler 
     const handleAddToCart = (product) => {
-        const newCart = [...cart, product] // এখানে cart array এর উপাদান গুলো বসিয়ে, তারপর product কে সেট করা হয়েছে।
-        setCart(newCart);
+        // const newCart = [...cart, product] // এখানে cart array এর উপাদান গুলো বসিয়ে, তারপর product কে সেট করা হয়েছে।
 
+        //if product does not exist in the cart then set quantity = 1;
+        //if product exist update quantity by 1
+        let newCart = [];
+
+        const exists = cart.find(pd => pd.id === product.id);
+
+        if (!exists) {
+            product.quantity = 1;
+            newCart = [...cart, product]
+        }
+        else {
+            exists.quantity = exists.quantity + 1; // exists এর quantity কে আপডেট করা হয়েছে।
+            const remaining = cart.filter(pd => pd.id !== product.id) //যে id টা মিলে গেছে সেটা বাদে বাকি গুলো Remaining এ রাখা হয়েছে।
+            newCart = [...remaining, product] //বাকি গুলোকে cart এর মধ্যে set করে দেয়া হয়েছে।
+        }
+
+        setCart(newCart);
         addToDb(product.id) // addToDb function এর মধ্যে product এর id কে পাঠানো হয়েছে, local Storage এ সেট করার জন্য।
     }
     return (

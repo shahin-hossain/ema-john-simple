@@ -19,8 +19,9 @@ const Shop = () => {
         // console.log('products', products)
         //get stored Cart
         const storedCart = getShoppingCart(); // এখানে side effect টা ব্যবহার করা হয়েছে Local Storage এর Stored id Value নিয়ে আশার জন্য। এবং এই ID ধরে product টাকে বের করে নিয়ে আসবো।
-        const savedCart = []; //এই Cart এর মধ্যে রাখা হবে local Storage থেকে id দিয়ে প্রাপ্ত products
+        const savedCart = []; //এই savedCart এর মধ্যে রাখা হবে local Storage থেকে id দিয়ে প্রাপ্ত products
 
+        //Stored data থেকে data নিয়ে আসার জন্য ৫টা স্টেপ করেছি।
         //setp 1: get id of the stored cart
         for (const id in storedCart) {
             // console.log(id)
@@ -35,7 +36,7 @@ const Shop = () => {
                 savedCart.push(addedProduct)
             }
         }
-        //setp 5: set tha cart
+        //setp 5: set the cart
         setCart(savedCart)
         // console.log(addedProduct)
 

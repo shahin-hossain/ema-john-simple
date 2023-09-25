@@ -11,6 +11,7 @@ import Home from './component/Layout/Home.jsx';
 import Orders from './component/Orders/Orders.jsx';
 import Inventory from './component/Inventory/Inventory.jsx';
 import Login from './component/Login/Login.jsx';
+import CartProductsLoader from './Loaders/CartProductLoader.js';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'orders',
-        element: <Orders></Orders>
+        element: <Orders></Orders>,
+        loader: CartProductsLoader // এখানে Manually data fetch না করে আলাদা একটি function এর মধ্যে data load করে এখানে Define করে দেয়া হয়েছে।
+
       },
       {
         path: 'inventory',

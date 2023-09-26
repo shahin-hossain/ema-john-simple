@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './Shop.css'
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
-import { addToDb, getShoppingCart } from '../../utilities/fakedb';
+import { addToDb, deleteShoppingCart, getShoppingCart } from '../../utilities/fakedb';
 const Shop = () => {
     // useState & useEffect for load data
     const [products, setProducts] = useState([]);
@@ -66,6 +66,12 @@ const Shop = () => {
         setCart(newCart);
         addToDb(product.id) // addToDb function এর মধ্যে product এর id কে পাঠানো হয়েছে, local Storage এ সেট করার জন্য।
     }
+
+    //shop থেকেও clear cart handler কে পাঠাতে হবে। নইলে এখনে থেকে যে props যাবে, handler কে পাবে না, তাতে করে shop page এ clear করবে না। 
+    const handleClearCart = () => {
+        setCart([])
+        deleteShoppingCart()
+    }
     return (
         <div className='shop-container'>
             {/* product container */}
@@ -78,7 +84,10 @@ const Shop = () => {
             </div>
             {/* cart container start */}
             <div className="cart-container">
-                <Cart cart={cart}></Cart>
+                <Cart
+                    cart={cart}
+                    handleClearCart={handleClearCart}
+                ></Cart>
             </div>
         </div>
     );

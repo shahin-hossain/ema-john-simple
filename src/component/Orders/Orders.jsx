@@ -3,7 +3,7 @@ import Cart from '../Cart/Cart';
 import { useLoaderData } from 'react-router-dom';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import './Orders.css'
-import { removeFromDb } from '../../utilities/fakedb';
+import { deleteShoppingCart, removeFromDb } from '../../utilities/fakedb';
 const Orders = () => {
     const savedCart = useLoaderData();
     // কোনো cart item কে cart list থেকে delete করতে চাইলে নতুন করে state set করে data পাঠাতে হবে।
@@ -13,6 +13,12 @@ const Orders = () => {
         const remaining = cart.filter(product => product.id !== id); //filter করা হয়েছে, যে id টা click handler এর সাথে মিলবে সেটা বাদে বাকি product গুলো নিবে।
         setCart(remaining); //বাকি গুলোকে state এ সেট করে দেয়া হয়েছে।
         removeFromDb(id) // local Storage থেকেও id Remove করা হয়েছে।
+    }
+
+    //orders এর page থেকে  cart clear করা জন্য handleClearCart function পাঠানো হচ্ছে, shop থেকেও cart কে করতে হবে।
+    const handleClearCart = () => {
+        setCart([]);
+        deleteShoppingCart()
     }
     return (
         <div className='shop-container'>
@@ -24,7 +30,10 @@ const Orders = () => {
                 ></ReviewItem>)}
             </div>
             <div>
-                <Cart cart={cart}></Cart>  {/* এখানে Cart কে নেয়া হয়েছে, এখানে যদি কোনো ভ্যালু না দেয়া হয় তাহলে not iterable Error দিয়ে যা কোনো array এর লুপ কে বুঝায় কারণ Cart এর মধ্যে array কে লুপ করা হচ্ছে।*/}
+                <Cart
+                    cart={cart}
+                    handleClearCart={handleClearCart}
+                ></Cart>  {/* এখানে Cart কে নেয়া হয়েছে, এখানে যদি কোনো ভ্যালু না দেয়া হয় তাহলে not iterable Error দিয়ে যা কোনো array এর লুপ কে বুঝায় কারণ Cart এর মধ্যে array কে লুপ করা হচ্ছে।*/}
             </div>
 
         </div>

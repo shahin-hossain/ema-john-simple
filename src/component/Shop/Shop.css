@@ -12,3 +12,15 @@
     gap: 45px;
 
 }
+
+.btn-proceed {
+    width: 100%;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F90;
+    border-radius: 4px;
+    color: #ffffff;
+    margin: 20px auto;
+}

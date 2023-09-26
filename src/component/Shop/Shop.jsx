@@ -4,6 +4,9 @@ import './Shop.css'
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
 import { addToDb, deleteShoppingCart, getShoppingCart } from '../../utilities/fakedb';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 const Shop = () => {
     // useState & useEffect for load data
     const [products, setProducts] = useState([]);
@@ -87,7 +90,14 @@ const Shop = () => {
                 <Cart
                     cart={cart}
                     handleClearCart={handleClearCart}
-                ></Cart>
+                >
+                    <Link to='/orders'>
+                        <button className='btn-proceed'>
+                            <span>Order Review</span>
+                            <FontAwesomeIcon icon={faArrowRight} />
+                        </button>
+                    </Link>  {/* shop page থেকে children props পাঠানো হয়েছে, user যখন shop page থাকবে তখন এই shop page এর element show করবে।*/}
+                </Cart>
             </div>
         </div>
     );

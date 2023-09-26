@@ -2,10 +2,10 @@ import React from 'react';
 import './Cart.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
-const Cart = ({ cart, handleClearCart }) => { //Option 3: destructuing দিয়ে props কে সরাসরি Receive করা হয়েছে।
+const Cart = ({ cart, handleClearCart, children }) => { //Option 3: destructuing দিয়ে props কে সরাসরি Receive করা হয়েছে।
     // const cart = props.cart; //Option 1
     // const { cart } = props; //option 2
-
+    //children props হলো Special props যেটি orders, shops থেকে পাঠানো হয়েছে।
     // console.log(cart)
     let total = 0;
     let totalShipping = 0;
@@ -37,6 +37,7 @@ const Cart = ({ cart, handleClearCart }) => { //Option 3: destructuing দিয়
                 <span>Clear Cart</span>
                 <FontAwesomeIcon icon={faTrashCan} />
             </button>
+            {children}
         </div>
     );
 };

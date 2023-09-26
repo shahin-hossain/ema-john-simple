@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Cart from '../Cart/Cart';
 import { useLoaderData } from 'react-router-dom';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import './Orders.css'
+import { removeFromDb } from '../../utilities/fakedb';
 const Orders = () => {
-    const cart = useLoaderData();
+    const savedCart = useLoaderData();
+    // কোনো cart item কে cart list থেকে delete করতে চাইলে নতুন করে state set করে data পাঠাতে হবে।
+    const [cart, setCart] = useState(savedCart) //saveCart এখন শুধু initial State এ ব্যবহার করা হবে।
+    // console.log(savedCart)
+    const handleRemoveFromId = (id) => {
+        const remaining = cart.filter(product => product.id !== id); //filter করা হয়েছে, যে id টা click handler এর সাথে মিলবে সেটা বাদে বাকি product গুলো নিবে।
+        setCart(remaining); //বাকি গুলোকে state এ সেট করে দেয়া হয়েছে।
+        removeFromDb(id) // local Storage থেকেও id Remove করা হয়েছে।
+    }
     return (
         <div className='shop-container'>
             <div className='review-container'>
                 {cart.map(product => <ReviewItem
                     key={product.id}
                     product={product}
+                    handleRemoveFromId={handleRemoveFromId} // function কে props করে পাঠানো হয়েছে।
                 ></ReviewItem>)}
             </div>
             <div>

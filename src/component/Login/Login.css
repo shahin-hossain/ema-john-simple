@@ -63,3 +63,7 @@
 .btn-submit:hover {
     background: rgba(255, 153, 0, 0.60);
 }
+
+.toggle-login-signup {
+    text-align: center;
+}

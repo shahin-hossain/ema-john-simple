@@ -1,5 +1,6 @@
 import React from 'react';
 import './Login.css'
+import { Link } from 'react-router-dom';
 const Login = () => {
     return (
         <div className='form-container'>
@@ -16,6 +17,7 @@ const Login = () => {
                 </div>
                 <input className='btn-submit' type="submit" value="Login" />
             </form>
+            <p className='toggle-login-signup'><small>New to Ema-John ? <Link to='/signup'>Create New Account</Link></small></p>
         </div>
     );
 };

@@ -12,10 +12,12 @@ const AuthProvider = ({ children }) => {
 
     // user sign up
     const createUser = (email, password) => {
+        setLoading(true) // user create হয়ে আসতে আসতে loading হবে। অনেক সময় সমস্যা করতে পারে। যে  route থেকে আসা হয়েছে তা change হবে না।
         return createUserWithEmailAndPassword(auth, email, password)
     }
     //user sign in
     const signIn = (email, password) => {
+        setLoading(true)  // user login হয়ে আসতে আসতে loading হবে। অনেক সময় সমস্যা করতে পারে। যে  route থেকে আসা হয়েছে তা change হবে না।
         return signInWithEmailAndPassword(auth, email, password);
     }
     //user log out

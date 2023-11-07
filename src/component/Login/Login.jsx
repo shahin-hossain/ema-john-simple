@@ -1,12 +1,19 @@
 import React, { useContext } from 'react';
 import './Login.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/authProvider';
 const Login = () => {
 
     const { signIn } = useContext(AuthContext);
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // redirect page location অর্থাৎ যে পেজ থেকে login page এ পাঠানো হয়েছে, login এর পরে সে পেজে ফিরে যাওয়ার জন্য। useLocation hook ব্যবহার করা হয়েছে।
+    // নিচের optional chaining use করা হয়েছে কারণ সব সময় location এর state থাকবে না 
+    // যদি state না থাকে chaining করে home route এ নিয়ে যাবে।
+    const from = location.state?.from?.pathname || '/';
+    console.log(location)
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -19,7 +26,8 @@ const Login = () => {
                 const loggedUser = result.user;
                 console.log(loggedUser)
                 form.reset();
-                navigate('/') // login এর পরে user কে home পাঠানোর জন্য navigate ব্যবহার করা হয়েছে।
+                // navigate('/') // login এর পরে user কে home পাঠানোর জন্য navigate ব্যবহার করা হয়েছে।
+                navigate(from, { replace: true }) //from এর condition অনুযায়ী navigate হবে। history না রাখার জন্য replace কে true করে পাঠানো হয়েছে।
             })
             .catch(error => {
                 console.log(error)

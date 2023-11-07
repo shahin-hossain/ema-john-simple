@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import './Login.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/authProvider';
 const Login = () => {
 
     const { signIn } = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -17,6 +19,7 @@ const Login = () => {
                 const loggedUser = result.user;
                 console.log(loggedUser)
                 form.reset();
+                navigate('/') // login এর পরে user কে home পাঠানোর জন্য navigate ব্যবহার করা হয়েছে।
             })
             .catch(error => {
                 console.log(error)

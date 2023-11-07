@@ -8,6 +8,7 @@ const auth = getAuth(app)
 const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     // user sign up
     const createUser = (email, password) => {
@@ -27,6 +28,7 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
+            setLoading(false) // user চলে আসলে loading বন্ধ হয়ে যাবে।
         })
         //stop observer while unmounting
         //user যখন এই application থেকে বের হয়ে যাবে বা signout করবে, তখন onAuthStateChanged state টাকে ছেড়ে দিতে হবে বা observer টাকে বন্ধ করতে হবে। করণ এটা state টাকে ধরে রাখে। তাই onAuthStateChanged কে একটা variable এর মধ্যে রেখে একটি annonimous arrow function এর মধ্যে variable টাকে call করে return করতে হবে ।
@@ -37,6 +39,7 @@ const AuthProvider = ({ children }) => {
 
     const authInfo = {
         user,
+        loading,
         createUser,
         signIn,
         logOut

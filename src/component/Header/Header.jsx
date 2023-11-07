@@ -3,9 +3,19 @@ import './Header.css'
 import Logo from '../../images/Logo.svg'
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../providers/authProvider';
+
 const Header = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
+
+    //logOut
+    const handleSignOut = () => {
+        logOut()
+            .then(() => {
+                console.log('logged Out')
+            })
+            .catch(error => console.error(error))
+    }
     return (
         <div className='header'>
             {/* header logo */}
@@ -17,7 +27,7 @@ const Header = () => {
                 <Link to="/inventory">Inventory</Link>
                 <Link to="/login">login</Link>
                 <Link to="/signup">Sign Up</Link>
-                {user && <span>Welcome</span>}
+                {user && <span>Welcome {user.email} <button onClick={handleSignOut}>Log Out</button></span>}
             </nav>
         </div>
     );

@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './SignUp.css'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../providers/authProvider';
+
 const SignUp = () => {
 
     const [error, setError] = useState('')
+
+    const { createUser } = useContext(AuthContext);
+
     const handleSignUp = (event) => {
         event.preventDefault()
         const form = event.target;
@@ -12,6 +17,8 @@ const SignUp = () => {
         const confirm = form.confirm.value;
 
         console.log(email, password, confirm)
+
+        setError('') //প্রতিবার নতুন করে error আসলে আগে clear করবে তারপর error set  করবে।
         if (password !== confirm) {
             setError('Your Password did not match')
             return
@@ -20,6 +27,15 @@ const SignUp = () => {
             setError('Password must be 6 characters or longer')
             return
         }
+        createUser(email, password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser)
+            })
+            .catch(error => {
+                console.log(error)
+                setError(error)
+            })
 
     }
     return (
